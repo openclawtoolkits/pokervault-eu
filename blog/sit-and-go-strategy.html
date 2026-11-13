@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sit and Go Strategy: The Complete Beginner’s Guide | PokerVault.eu</title>
+<meta name="description" content="Introduction Good sit and go strategy comes down to one idea: play tight early, get aggressive as the blinds rise, and respect the bubble. Sit and gos (SNGs) are short…">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  body { background:#070A11; color:#F8FAFC; font-family:'Inter',sans-serif; line-height:1.7; margin:0; padding:0; }
+  .topbar { background:#0D121D; border-bottom:1px solid rgba(148,163,184,0.14); padding:14px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .wrap { max-width:1200px; margin:32px auto; padding:0 24px; display:grid; grid-template-columns:1fr 340px; gap:32px; align-items:start; }
+  .article-box { background:#0D121D; border:1px solid rgba(148,163,184,0.14); border-radius:18px; padding:36px; }
+  h1, h2, h3 { font-family:'Plus Jakarta Sans',sans-serif; color:#FFF; line-height:1.25; }
+  h1 { font-size:2.1rem; margin-bottom:18px; }
+  h2 { font-size:1.5rem; margin-top:28px; border-bottom:1px solid rgba(148,163,184,0.14); padding-bottom:8px; }
+  h3 { font-size:1.2rem; color:#10B981; margin-top:22px; }
+  p, li { color:#CBD5E1; }
+  a { color:#10B981; }
+  table { width:100%; border-collapse:collapse; margin:20px 0; }
+  th, td { border:1px solid rgba(148,163,184,0.18); padding:10px 12px; text-align:left; }
+  th { background:#131B2C; color:#06B6D4; }
+  img { max-width:100%; height:auto; border-radius:10px; }
+  @media (max-width:900px) { .wrap { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index.html" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.2rem;color:#FFF;text-decoration:none;">Poker<span style="color:#10B981;">Vault</span>.gg</a>
+    <a href="../index.html" style="background:#10B981;color:#04130D;font-weight:700;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:0.86rem;">← Back to 286 Courses &amp; Reviews</a>
+  </header>
+  <main class="wrap">
+    <article class="article-box">
+      <div style="font-family:monospace;font-size:0.76rem;color:#06B6D4;margin-bottom:8px;">Strategy Guide · 2026-10-25 · 10 min read (2147 words)</div>
+      <h1>Sit and Go Strategy: The Complete Beginner’s Guide</h1>
+      <div>
+<h2 class="wp-block-heading">Introduction</h2>
+
+
+
+<p class="wp-block-paragraph">Good sit and go strategy comes down to one idea: play tight early, get aggressive as the blinds rise, and respect the bubble. Sit and gos (SNGs) are short tournaments that start as soon as the seats fill. That makes them one of the most structured formats in poker, and one of the easiest to learn.</p>
+
+
+
+<p class="wp-block-paragraph">This guide walks you through every stage of an SNG, from the first hand to heads-up. You will learn how ICM changes your decisions, when to switch to push/fold, how big your bankroll should be, and the mistakes that cost beginners the most money.</p>
+
+
+
+<p class="wp-block-paragraph">It is written for players who know the rules of No-Limit Hold&#8217;em but are new to single-table tournaments. If you already play cash games, pay extra attention to the ICM section; it is where most cash players leak chips.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="572" src="https://PokerVault.eu/wp-content/uploads/2026/10/sit-and-go-strategy-1024x572.jpg" alt="Sit and go strategy guide: chips and cards on a poker table" class="wp-image-34276" title="" srcset="https://PokerVault.eu/wp-content/uploads/2026/10/sit-and-go-strategy-1024x572.jpg 1024w, https://PokerVault.eu/wp-content/uploads/2026/10/sit-and-go-strategy-300x167.jpg 300w, https://PokerVault.eu/wp-content/uploads/2026/10/sit-and-go-strategy-767x428.jpg 767w, https://PokerVault.eu/wp-content/uploads/2026/10/sit-and-go-strategy-1536x857.jpg 1536w, https://PokerVault.eu/wp-content/uploads/2026/10/sit-and-go-strategy-598x334.jpg 598w, https://PokerVault.eu/wp-content/uploads/2026/10/sit-and-go-strategy-2048x1143.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">What is a sit and go?</h2>
+
+
+
+<p class="wp-block-paragraph">A sit and go is a tournament with a fixed number of seats that starts the moment it fills, with no scheduled start time. Everyone buys in for the same amount and gets the same starting stack. Blinds rise on a set schedule until one player holds every chip.</p>
+
+
+
+<p class="wp-block-paragraph">The most common SNG formats:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tbody><tr><th>Format</th><th>Players</th><th>Typical payouts</th><th>What it rewards</th></tr><tr><td>Standard 9-max</td><td>9</td><td>Top 3: 50% / 30% / 20%</td><td>Patience, bubble discipline</td></tr><tr><td>6-max</td><td>6</td><td>Top 2: 65% / 35%</td><td>More aggression, earlier steals</td></tr><tr><td>Heads-up</td><td>2</td><td>Winner takes all</td><td>Postflop skill, adaptation</td></tr><tr><td>Double or Nothing</td><td>6–10</td><td>Top half each get 2x the buy-in</td><td>Survival over chip accumulation</td></tr><tr><td>Spin &amp; Go / jackpot</td><td>3</td><td>Random prize pool, winner takes most</td><td>Short-stack, push/fold play</td></tr><tr><td>Multi-table SNG</td><td>18–180</td><td>Top 10–20%</td><td>Mix of SNG and MTT skills</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">Speed matters as much as format. Regular SNGs have 10–15 minute blind levels, turbos around 5 minutes, and hyper-turbos as little as 2–3 minutes. The faster the structure, the sooner you reach push/fold mode and the more luck evens out over fewer decisions.</p>
+
+
+
+<p class="wp-block-paragraph">This guide focuses on the standard 9-max SNG. Nearly every idea carries over to the other formats with small adjustments.</p>
+
+
+
+<h2 class="wp-block-heading">Why SNG strategy is different: ICM explained</h2>
+
+
+
+<p class="wp-block-paragraph">In an SNG, chips are not money: the chips you lose are worth more than the chips you win. That one rule, captured by the Independent Chip Model (ICM), is what separates SNG strategy from cash game strategy.</p>
+
+
+
+<p class="wp-block-paragraph">In a cash game, a chip is always worth its face value. In an SNG, you are paid by finishing position, not by chip count. Winning every chip only earns you first place, which is 50% of the prize pool, not 100%.</p>
+
+
+
+<h3 class="wp-block-heading">A worked example</h3>
+
+
+
+<p class="wp-block-paragraph">Take a $10 9-max SNG with a $90 prize pool (ignoring rake), paying $45 / $27 / $18. Three players remain, each with 4,500 chips. Because the stacks are equal, each player&#8217;s equity is $30.</p>
+
+
+
+<p class="wp-block-paragraph">Now you go all-in against one opponent:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tbody><tr><th>Outcome</th><th>Your chips</th><th>Your $ equity</th><th>Change</th></tr><tr><td>You win the hand</td><td>9,000</td><td>$39</td><td>+$9 (+30%)</td></tr><tr><td>You lose the hand</td><td>0</td><td>$18 (3rd place)</td><td>−$12 (−40%)</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">Doubling your chips raised your equity by only 30%, while busting cut it by 40%. That gap is why you need a stronger hand to call an all-in near the money than you would in a cash game.</p>
+
+
+
+<h3 class="wp-block-heading">What ICM means at the table</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Calling ranges shrink</strong> as the payouts get closer, especially for medium stacks.</li>
+
+
+
+<li><strong>Shoving ranges widen</strong> for big stacks, because opponents can&#8217;t call you light without risking elimination.</li>
+
+
+
+<li><strong>Short stacks gain leverage</strong> from other players busting first, so medium stacks should avoid fighting them.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">You don&#8217;t need to calculate ICM at the table. Learn the patterns here, then check your close spots afterward with an ICM calculator.</p>
+
+
+
+<h2 class="wp-block-heading">Early stage strategy (blinds 10/20 to 25/50)</h2>
+
+
+
+<p class="wp-block-paragraph">In the early stage, play tight and avoid big pots without a big hand. Stacks are deep (50+ big blinds), blinds are small, and there is little to win by stealing. Your main goal is to survive and pick up chips from weaker players&#8217; mistakes.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Play a narrow range.</strong> Open premium pairs, AK and AQ, and strong broadway hands. Add suited connectors and small pairs only in late position.</li>
+
+
+
+<li><strong>Set-mine cheaply.</strong> Calling a small raise with a pocket pair to hit a set is profitable when stacks are deep.</li>
+
+
+
+<li><strong>Value-bet relentlessly.</strong> Low-stakes SNG fields call too often. Bet your strong hands for value and bluff rarely.</li>
+
+
+
+<li><strong>Avoid marginal stack-offs.</strong> Losing your stack with top pair, weak kicker in level 2 is the classic early-stage leak.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Think of the early levels as a time to gather information. Note who limps, who calls too much, and who folds to aggression. You will use those reads once the blinds start to bite.</p>
+
+
+
+<h2 class="wp-block-heading">Middle stage strategy (blinds 50/100 to 100/200)</h2>
+
+
+
+<p class="wp-block-paragraph">In the middle stage, shift from survival to accumulation by stealing blinds. Stacks shrink to 15–30 big blinds, and the blinds plus antes are now worth fighting for. Players who stay passive here get blinded down into desperate spots.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Open-raise more from late position.</strong> From the cutoff and button, attack tight players in the blinds with a wide range.</li>
+
+
+
+<li><strong>Re-steal with a 3-bet shove.</strong> With 12–20 big blinds, shoving over a late-position open is a strong weapon against frequent stealers.</li>
+
+
+
+<li><strong>Use smaller open sizes.</strong> A min-raise or 2.2x keeps your risk low and your fold equity high.</li>
+
+
+
+<li><strong>Know your stack depth.</strong> Below roughly 10–12 big blinds, stop open-raising and switch to push/fold.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Push/fold basics</h3>
+
+
+
+<p class="wp-block-paragraph">Once you have about 10 big blinds or fewer, your only preflop options should be all-in or fold. A raise you can&#8217;t fold to a re-shove wastes chips you need for fold equity. The shorter your stack and the later your position, the wider you can shove.</p>
+
+
+
+<p class="wp-block-paragraph">Push/fold charts, built with tools like ICMIZER or HoldemResources Calculator, show the exact ranges for each stack and seat. Study them away from the table until the common spots feel automatic.</p>
+
+
+
+<h2 class="wp-block-heading">Bubble strategy: where SNGs are won and lost</h2>
+
+
+
+<p class="wp-block-paragraph">On the bubble, big stacks should attack and medium stacks should tighten up. In a 9-max SNG the bubble starts when four players remain and only three get paid. ICM pressure peaks here, and your stack size decides your role.</p>
+
+
+
+<h3 class="wp-block-heading">Big stack: apply pressure</h3>
+
+
+
+<p class="wp-block-paragraph">You are the bully. Opponents can&#8217;t call your shoves without risking the min-cash, so shove or raise wide, especially into medium stacks. Avoid tangling with the other big stack; you have the most to lose against them.</p>
+
+
+
+<h3 class="wp-block-heading">Medium stack: stay out of trouble</h3>
+
+
+
+<p class="wp-block-paragraph">You are under the most ICM pressure. Fold hands you would happily play in a cash game, like AJ or 88 facing a big stack&#8217;s shove. Let the short stack bust first; their elimination pays you.</p>
+
+
+
+<h3 class="wp-block-heading">Short stack: pick your spot and shove</h3>
+
+
+
+<p class="wp-block-paragraph">With under 8 big blinds, you can&#8217;t wait for premium hands. Shove first-in, ideally into players who must fold, and do it before the blinds take your fold equity. Never limp or fold your way down to 2–3 big blinds.</p>
+
+
+
+<h3 class="wp-block-heading">Bubble rules of thumb</h3>
+
+
+
+<ul class="wp-block-list">
+<li>Calling an all-in requires a much stronger hand than shoving does.</li>
+
+
+
+<li>The stack covering you matters more than your cards; avoid confrontations with players who can bust you.</li>
+
+
+
+<li>Players who are too tight on the bubble are your most profitable targets.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Bubble play is deep enough to earn its own study. If you want a structured course on it, Bubble Mastery by BBZ Poker covers ICM pressure and bubble spots in detail.</p>
+
+
+
+<h2 class="wp-block-heading">In the money and heads-up play</h2>
+
+
+
+<p class="wp-block-paragraph">Once you&#8217;re in the money, play aggressively, because the pay jumps reward winning more than surviving. ICM pressure drops sharply after the bubble bursts. With three players left, the gap between 3rd ($18) and 1st ($45) in our example is worth fighting for.</p>
+
+
+
+<h3 class="wp-block-heading">Three-handed</h3>
+
+
+
+<ul class="wp-block-list">
+<li>Steal the blinds from the button and small blind with a wide range.</li>
+
+
+
+<li>Still avoid calling off light against the big stack when a short stack is close to busting.</li>
+
+
+
+<li>Keep shoving short; most stacks will be under 15 big blinds.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Heads-up</h3>
+
+
+
+<p class="wp-block-paragraph">Heads-up, ICM disappears completely: chips equal equity, so play to win the hand, not to survive.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Play most buttons.</strong> On the button (small blind), raise or shove the large majority of hands.</li>
+
+
+
+<li><strong>Defend your big blind wide.</strong> You are getting a good price, and folding too much lets your opponent steal freely.</li>
+
+
+
+<li><strong>Shove wider than feels comfortable.</strong> With 10 big blinds or fewer, shoving hands like any ace, any pair, and most suited kings is standard.</li>
+
+
+
+<li><strong>Call wider too.</strong> Against an aggressive shover, hands like K8 or Q9 are often clear calls.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Most beginners play heads-up far too tight. Your opponent&#8217;s range is wide, so yours should be too.</p>
+
+
+
+<h2 class="wp-block-heading">7 common sit and go mistakes beginners make</h2>
+
+
+
+<p class="wp-block-paragraph">The most expensive SNG mistakes all come from treating chips like cash.</p>
+
+
+
+<ol class="wp-block-list">
+<li><strong>Playing too loose early.</strong> Stacking off in level 2 with a marginal hand throws away your survival equity.</li>
+
+
+
+<li><strong>Calling all-ins too light on the bubble.</strong> A hand strong enough to shove is often not strong enough to call.</li>
+
+
+
+<li><strong>Waiting too long to shove.</strong> At 4 big blinds you have no fold equity left; shove at 8–10 instead.</li>
+
+
+
+<li><strong>Open-raising and folding to a shove with a short stack.</strong> Under 10 big blinds, raise all-in or fold.</li>
+
+
+
+<li><strong>Ignoring stack sizes.</strong> Who can bust you matters as much as your cards.</li>
+
+
+
+<li><strong>Playing heads-up too tight.</strong> Ranges are very wide; folding hands like K7 on the button gives away chips.</li>
+
+
+
+<li><strong>Playing above your bankroll.</strong> Even winning players hit downswings of dozens of buy-ins.</li>
+</ol>
+
+
+
+<h2 class="wp-block-heading">Bankroll management for sit and gos</h2>
+
+
+
+<p class="wp-block-paragraph">Keep at least 50–100 buy-ins for regular SNGs, and far more for high-variance formats. Variance in SNGs is lower than in multi-table tournaments, but losing stretches of 20–30 buy-ins happen even to strong players.</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tbody><tr><th>Format</th><th>Suggested bankroll</th><th>Why</th></tr><tr><td>Double or Nothing</td><td>30–50 buy-ins</td><td>Lowest variance; half the field cashes</td></tr><tr><td>Standard 9-max / 6-max</td><td>50–100 buy-ins</td><td>Moderate variance</td></tr><tr><td>Turbo / hyper-turbo</td><td>100+ buy-ins</td><td>Less skill edge per game, more luck</td></tr><tr><td>Multi-table SNG (45+ players)</td><td>150+ buy-ins</td><td>Payouts are top-heavy</td></tr><tr><td>Spin &amp; Go / jackpot</td><td>200+ buy-ins</td><td>Random prize pools create huge swings</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">Move down a level if your bankroll drops below the minimum for your stake. Moving down protects you from going broke during a normal downswing. Move up only when you have the full buy-in cushion for the next level.</p>
+
+
+
+<h2 class="wp-block-heading">How to improve at sit and gos</h2>
+
+
+
+<p class="wp-block-paragraph">The fastest way to improve is to review your close spots every week and study one topic at a time. SNGs repeat the same situations constantly, so a little focused study pays off quickly.</p>
+
+
+
+<p class="wp-block-paragraph">A simple weekly plan:</p>
+
+
+
+<ol class="wp-block-list">
+<li><strong>Play in focused sessions.</strong> Start with one or two tables until your bubble decisions feel automatic.</li>
+
+
+
+<li><strong>Tag close hands.</strong> Mark every bubble call, shove and fold you weren&#8217;t sure about.</li>
+
+
+
+<li><strong>Review them with an ICM calculator.</strong> Enter the stacks and payouts, and compare your play to the correct range.</li>
+
+
+
+<li><strong>Drill push/fold charts.</strong> Ten minutes a day on shoving and calling ranges builds instincts fast.</li>
+
+
+
+<li><strong>Take one structured course.</strong> A good course gives you a framework instead of scattered tips.</li>
+</ol>
+
+
+
+<h3 class="wp-block-heading">Recommended training</h3>
+
+
+
+<p class="wp-block-paragraph">If you want to speed things up, a training course is the most efficient investment you can make:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong><a href="#course-32727" onclick="openCourseModal(32727); return false;" data-type="link" data-id="https://PokerVault.eu/product/bubble-mastery-bbz-poker/">Bubble Mastery by BBZ Poker</a></strong>: Ryan McEathron&#8217;s course on ICM pressure and bubble play; the closest match to the skills in this guide.</li>
+
+
+
+<li><a href="https://PokerVault.eu" target="_blank" rel="noopener"><strong>Browse all poker courses at PokerVault.eu</strong></a>: discounted courses from Upswing Poker, Run It Once, BBZ Poker and PokerCoaching, including tournament and preflop fundamentals that apply directly to SNGs.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">Frequently asked questions</h2>
+
+
+
+<p class="wp-block-paragraph">Add these to a Rank Math FAQ block so they output FAQPage schema.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>What is the best strategy for sit and gos?</strong> Play tight in the early levels, steal blinds aggressively in the middle stage, and adjust to ICM on the bubble. Switch to push/fold once your stack drops to about 10 big blinds.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>What is ICM in poker?</strong> ICM (the Independent Chip Model) converts tournament chip stacks into real-money equity. It shows that chips you lose are worth more than chips you win, which is why you should call all-ins tighter near the money.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>When should I go all-in in a sit and go?</strong> With around 10 big blinds or fewer, move all-in or fold rather than making a standard raise. The shorter your stack and the later your position, the wider your shoving range.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Are sit and gos still profitable?</strong> Yes, but the games are tougher than they were a decade ago. Profit now comes from solid ICM and push/fold fundamentals, table selection, and choosing formats with reasonable rake.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>How many buy-ins do I need for sit and gos?</strong> Keep 50–100 buy-ins for standard SNGs, 100+ for turbos, and 200+ for jackpot formats like Spin &amp; Gos.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Are sit and gos better than cash games for beginners?</strong> SNGs suit many beginners because they have a fixed cost, a clear structure, and repeated situations that are easy to study. Cash games reward deeper postflop skill and give more flexible session length.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</div>
+    </article>
+    <aside>
+        <div style="background:#0D121D;border:1px solid rgba(16,185,129,0.45);border-radius:14px;padding:20px;position:sticky;top:24px;">
+          <div style="font-family:monospace;font-size:0.72rem;color:#10B981;margin-bottom:8px;">⚡ COURSE FEATURED IN REVIEW</div>
+          <img src="https://cheapcourses.eu/wp-content/uploads/2026/07/bbzpoker-bubble-mastery-300x300.jpg" style="width:100%;border-radius:10px;margin-bottom:12px;" />
+          <h3 style="font-size:1.1rem;margin-bottom:6px;color:#FFF;">Bubble Mastery – BBZ Poker Course by Ryan “newguy89” McEathron</h3>
+          <div style="margin-bottom:14px;font-family:monospace;">
+            <span style="color:#64748B;text-decoration:line-through;margin-right:8px;">$499</span>
+            <strong style="color:#10B981;font-size:1.5rem;">$35</strong>
+          </div>
+          <a href="https://cheapcourses.eu/?add-to-cart=32727" style="display:block;text-align:center;background:#10B981;color:#04130D;font-weight:700;padding:12px;border-radius:10px;text-decoration:none;margin-bottom:8px;">Buy Instant Access ($35) →</a>
+          <a href="../index.html" style="display:block;text-align:center;background:#131B2C;color:#06B6D4;font-weight:600;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;">Add to 3-Pack Bundle (Save 25%) →</a>
+        </div>
+        </aside>
+  </main>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastering The Fundamentals: Poker Math | PokerVault.eu</title>
+<meta name="description" content="Don’t let the word “math” scare you. To elevate your poker game, you don’t need to be a calculus professor. Instead, a solid grasp of a few basic equations can transform your…">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  body { background:#070A11; color:#F8FAFC; font-family:'Inter',sans-serif; line-height:1.7; margin:0; padding:0; }
+  .topbar { background:#0D121D; border-bottom:1px solid rgba(148,163,184,0.14); padding:14px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .wrap { max-width:1200px; margin:32px auto; padding:0 24px; display:grid; grid-template-columns:1fr 340px; gap:32px; align-items:start; }
+  .article-box { background:#0D121D; border:1px solid rgba(148,163,184,0.14); border-radius:18px; padding:36px; }
+  h1, h2, h3 { font-family:'Plus Jakarta Sans',sans-serif; color:#FFF; line-height:1.25; }
+  h1 { font-size:2.1rem; margin-bottom:18px; }
+  h2 { font-size:1.5rem; margin-top:28px; border-bottom:1px solid rgba(148,163,184,0.14); padding-bottom:8px; }
+  h3 { font-size:1.2rem; color:#10B981; margin-top:22px; }
+  p, li { color:#CBD5E1; }
+  a { color:#10B981; }
+  table { width:100%; border-collapse:collapse; margin:20px 0; }
+  th, td { border:1px solid rgba(148,163,184,0.18); padding:10px 12px; text-align:left; }
+  th { background:#131B2C; color:#06B6D4; }
+  img { max-width:100%; height:auto; border-radius:10px; }
+  @media (max-width:900px) { .wrap { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index.html" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.2rem;color:#FFF;text-decoration:none;">Poker<span style="color:#10B981;">Vault</span>.gg</a>
+    <a href="../index.html" style="background:#10B981;color:#04130D;font-weight:700;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:0.86rem;">← Back to 286 Courses &amp; Reviews</a>
+  </header>
+  <main class="wrap">
+    <article class="article-box">
+      <div style="font-family:monospace;font-size:0.76rem;color:#06B6D4;margin-bottom:8px;">Strategy Guide · 2025-09-07 · 5 min read (1037 words)</div>
+      <h1>Mastering The Fundamentals: Poker Math</h1>
+      <div>
+<p class="wp-block-paragraph">Don&#8217;t let the word &#8220;math&#8221; scare you. To elevate your poker game, you don&#8217;t need to be a calculus professor. Instead, a solid grasp of a few basic equations can transform your decision-making, structure your strategy, and ultimately, make you a more profitable player<sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">At its core, all <a href="#course-23355" onclick="openCourseModal(23355); return false;" data-type="link" data-id="https://PokerVault.eu/product/bts-moving-up-package/">poker math</a> boils down to two key concepts:</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Equity</strong> and <strong>Expected Value (EV)</strong><sup></sup>. Understanding these ideas, along with a few related principles, will allow you to move beyond guesswork and start making consistently better plays. Let&#8217;s break down the essential math you need to know.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="1024" src="https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-1024x1024.jpg" alt="poker math" class="wp-image-26815" title="" srcset="https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-1024x1024.jpg 1024w, https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-300x300.jpg 300w, https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-150x150.jpg 150w, https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-768x768.jpg 768w, https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-1536x1536.jpg 1536w, https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-600x600.jpg 600w, https://PokerVault.eu/wp-content/uploads/2025/09/poker-math-100x100.jpg 100w, https://PokerVault.eu/wp-content/uploads/2025/09/poker-math.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Equity and Expected Value (EV): The Pillars of Poker Math</h2>
+
+
+
+<p class="wp-block-paragraph">These two concepts are the foundation upon which all winning poker strategy is built<sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Equity</strong>: This is simply your percentage chance of winning the pot if the hand goes to a showdown. For example, if you are all-in with Ace-King against an opponent&#8217;s pocket twos, your Ace-King has about 47% equity, while the pocket twos have 53%.</li>
+
+
+
+<li><strong>Expected Value (EV)</strong>: EV tells you how much a specific play is expected to win or lose in the long run. Every decision you make—betting, calling, or folding—has an EV. Your goal is to consistently make <strong>positive EV (+EV)</strong> decisions. A decision might have a positive or negative EV, and with practice, these calculations can become second nature.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">The calculation for EV is:</p>
+
+
+
+<p class="wp-block-paragraph"><strong>(Your win % × amount you stand to win) + (Your lose % × amount you stand to lose)</strong><sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">Imagine your opponent goes all-in for $100 into a $200 pot. You believe you have a 30% chance to win if you call. Your EV would be: (0.30 × $300) + (0.70 × -$100) = $90 &#8211; $70 =</p>
+
+
+
+<p class="wp-block-paragraph"><strong>$20</strong><sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">Since the result is a positive $20, calling is a +EV decision<sup></sup>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Pot Odds: Are You Getting the Right Price to Call?</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>Pot odds</strong> measure the relationship between risk and reward<sup></sup>. They tell you the minimum equity you need for a call to be profitable<sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">The calculation is:</p>
+
+
+
+<p class="wp-block-paragraph"><strong>(The bet you&#8217;re facing) / (The total pot after the bet)</strong><sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">For instance, if the pot is $80 and your opponent bets another $80, you are facing an $80 bet to win a total pot of $240 ($80 initial pot + $80 opponent&#8217;s bet + your $80 call). Your pot odds are $80 / $240 =</p>
+
+
+
+<p class="wp-block-paragraph"><strong>33.3%</strong><sup></sup>. This means you need to win more than 33.3% of the time to justify the call<sup></sup>.</p>
+
+
+
+<h3 class="wp-block-heading">Required Equity to Call Cheat Sheet</h3>
+
+
+
+<p class="wp-block-paragraph">Here&#8217;s a quick guide for the equity you need based on your opponent&#8217;s bet size:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Opponent bets 25% of pot</strong>: You need 16% equity.</li>
+
+
+
+<li><strong>Opponent bets 50% of pot</strong>: You need 25% equity.</li>
+
+
+
+<li><strong>Opponent bets 75% of pot</strong>: You need 30% equity.</li>
+
+
+
+<li><strong>Opponent bets 100% of pot</strong>: You need 33% equity.</li>
+
+
+
+<li><strong>Opponent bets 2x pot</strong>: You need 40% equity.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Equity Realization: Not All Equity is Created Equal</h2>
+
+
+
+<p class="wp-block-paragraph">Your raw equity isn&#8217;t always what you get to take home.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Equity realization</strong> is the concept of how much of your equity you actually manage to win from the pot<sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Over-realizing equity</strong> (more than 100%) is good and typically happens when you are <strong>in position</strong> with a <strong>strong range</strong>.</li>
+
+
+
+<li><strong>Under-realizing equity</strong> (less than 100%) is bad and often occurs when you are <strong>out of position</strong> with a <strong>weak or marginal range</strong>.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">You don&#8217;t need to calculate this during a hand, but you must be aware of it<sup></sup>. It’s why you might fold a marginal hand like Ace-high when out of position, even if you have some equity. You will likely under-realize it because your opponent can keep betting and force you to fold<sup></sup><sup></sup><sup></sup><sup></sup>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Counting Outs and The Rule of Two and Four</h2>
+
+
+
+<p class="wp-block-paragraph">To know if you have the right pot odds, you need to estimate your chances of winning. You can do this by counting your</p>
+
+
+
+<p class="wp-block-paragraph"><strong>&#8220;outs&#8221;</strong>—the cards that will likely give you the best hand<sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">A popular shortcut to convert your outs into a percentage is the</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Rule of Two and Four</strong><sup></sup>:</p>
+
+
+
+<ul class="wp-block-list">
+<li>On the <strong>flop</strong>, multiply your outs by <strong>four</strong> to estimate your chance of hitting by the river.</li>
+
+
+
+<li>On the <strong>turn</strong>, multiply your outs by <strong>two</strong> to estimate your chance of hitting on the river.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">For example, you&#8217;re on the turn with a draw that has 14 outs<sup></sup><sup></sup><sup></sup>. Using the rule of two, you have a roughly 28% chance of improving (14 x 2 = 28)<sup></sup>. If your opponent made a pot-sized bet, you&#8217;d need 33% equity to call<sup></sup>. Since 28% is less than 33%, this is a clear fold<sup></sup>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Stack-to-Pot Ratio (SPR) and Hand Combinations</h2>
+
+
+
+<p class="wp-block-paragraph">Two final concepts will help you refine your strategy by defining your opponent&#8217;s range and planning your bets.</p>
+
+
+
+<h3 class="wp-block-heading">Stack-to-Pot Ratio (SPR)</h3>
+
+
+
+<p class="wp-block-paragraph">SPR is calculated by dividing the effective stack size by the total pot<sup></sup>. This simple ratio helps you plan your bet sizing for the entire hand<sup></sup><sup></sup><sup></sup><sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Low SPR (1.0 or less)</strong>: Getting all-in is a strong possibility. At an SPR of 0.6 or less, your only bet should likely be all-in.</li>
+
+
+
+<li><strong>High SPR (4.0 or more)</strong>: You should generally not be thinking about getting all-in.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Counting Hand Combinations</h3>
+
+
+
+<p class="wp-block-paragraph">Understanding how many combinations of certain hands your opponent can have is crucial for range analysis<sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Unpaired Hands</strong> (like Ace-King): 16 total combinations (4 suited, 12 offsuit).</li>
+
+
+
+<li><strong>Paired Hands</strong> (like pocket Nines): 6 total combinations.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">The cards you hold and the cards on the board act as</p>
+
+
+
+<p class="wp-block-paragraph"><strong>&#8220;blockers,&#8221;</strong> reducing the possible combinations your opponent can have<sup></sup>. If you hold an Ace, your opponent has fewer combinations of hands containing an Ace<sup></sup>. This is especially powerful for bluffing. Holding the Ace of Spades on a three-spade board means it&#8217;s much less likely your opponent has a flush, making your bluff more credible<sup></sup>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">Conclusion: Practice Makes Perfect</h2>
+
+
+
+<p class="wp-block-paragraph">By understanding equity, EV, pot odds, and combinations, you can build a powerful and logical framework for every decision you make at the table. It takes some work away from the felt, but with practice, applying this math during a game will become fast, intuitive, and most importantly, profitable.</p>
+</div>
+    </article>
+    <aside>
+        <div style="background:#0D121D;border:1px solid rgba(16,185,129,0.45);border-radius:14px;padding:20px;position:sticky;top:24px;">
+          <div style="font-family:monospace;font-size:0.72rem;color:#10B981;margin-bottom:8px;">⚡ COURSE FEATURED IN REVIEW</div>
+          <img src="https://cheapcourses.eu/wp-content/uploads/2024/12/bts_moving_up_package-300x300.webp" style="width:100%;border-radius:10px;margin-bottom:12px;" />
+          <h3 style="font-size:1.1rem;margin-bottom:6px;color:#FFF;">BTS Moving Up Package</h3>
+          <div style="margin-bottom:14px;font-family:monospace;">
+            <span style="color:#64748B;text-decoration:line-through;margin-right:8px;">$199</span>
+            <strong style="color:#10B981;font-size:1.5rem;">$19</strong>
+          </div>
+          <a href="https://cheapcourses.eu/?add-to-cart=23355" style="display:block;text-align:center;background:#10B981;color:#04130D;font-weight:700;padding:12px;border-radius:10px;text-decoration:none;margin-bottom:8px;">Buy Instant Access ($19) →</a>
+          <a href="../index.html" style="display:block;text-align:center;background:#131B2C;color:#06B6D4;font-weight:600;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;">Add to 3-Pack Bundle (Save 25%) →</a>
+        </div>
+        </aside>
+  </main>
+</body>
+</html>

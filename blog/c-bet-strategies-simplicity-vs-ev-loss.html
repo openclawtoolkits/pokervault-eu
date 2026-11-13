@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C-Bet Strategies: Simplicity vs. EV Loss | PokerVault.eu</title>
+<meta name="description" content="Ever wonder if your complex, multi-size continuation-betting (C-bet) strategy is actually worth the mental gymnastics? Do you really need to be a “galaxy brain” poker wizard to…">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  body { background:#070A11; color:#F8FAFC; font-family:'Inter',sans-serif; line-height:1.7; margin:0; padding:0; }
+  .topbar { background:#0D121D; border-bottom:1px solid rgba(148,163,184,0.14); padding:14px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .wrap { max-width:1200px; margin:32px auto; padding:0 24px; display:grid; grid-template-columns:1fr 340px; gap:32px; align-items:start; }
+  .article-box { background:#0D121D; border:1px solid rgba(148,163,184,0.14); border-radius:18px; padding:36px; }
+  h1, h2, h3 { font-family:'Plus Jakarta Sans',sans-serif; color:#FFF; line-height:1.25; }
+  h1 { font-size:2.1rem; margin-bottom:18px; }
+  h2 { font-size:1.5rem; margin-top:28px; border-bottom:1px solid rgba(148,163,184,0.14); padding-bottom:8px; }
+  h3 { font-size:1.2rem; color:#10B981; margin-top:22px; }
+  p, li { color:#CBD5E1; }
+  a { color:#10B981; }
+  table { width:100%; border-collapse:collapse; margin:20px 0; }
+  th, td { border:1px solid rgba(148,163,184,0.18); padding:10px 12px; text-align:left; }
+  th { background:#131B2C; color:#06B6D4; }
+  img { max-width:100%; height:auto; border-radius:10px; }
+  @media (max-width:900px) { .wrap { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index.html" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.2rem;color:#FFF;text-decoration:none;">Poker<span style="color:#10B981;">Vault</span>.gg</a>
+    <a href="../index.html" style="background:#10B981;color:#04130D;font-weight:700;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:0.86rem;">← Back to 286 Courses &amp; Reviews</a>
+  </header>
+  <main class="wrap">
+    <article class="article-box">
+      <div style="font-family:monospace;font-size:0.76rem;color:#06B6D4;margin-bottom:8px;">Strategy Guide · 2025-09-12 · 4 min read (815 words)</div>
+      <h1>C-Bet Strategies: Simplicity vs. EV Loss</h1>
+      <div>
+<p class="wp-block-paragraph">Ever wonder if your complex, multi-size continuation-betting (C-bet) strategy is actually worth the mental gymnastics? Do you really need to be a &#8220;galaxy brain&#8221; poker wizard to crush the games, or can a much simpler approach work just as well? The &#8220;<a href="https://PokerVault.eu/product-tag/gto-wizard/" data-type="link" data-id="https://PokerVault.eu/product-tag/gto-wizard/">GTOWizard</a>&#8221; YouTube channel dug into this exact question, benchmarking five different C-bet strategies to see how much</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Expected Value (EV)</strong> you lose as you simplify<sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">The study focused on a common scenario: a single-raise pot between the cutoff and the big blind. The goal was to find the sweet spot between strategic simplicity and EV loss, testing just how simple you can get before a solver &#8220;rips it apart&#8221;. Let&#8217;s break down what they found</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="1024" height="1024" src="https://PokerVault.eu/wp-content/uploads/2025/09/c-betting.jpg" alt="continuation bet" class="wp-image-26901" title="" srcset="https://PokerVault.eu/wp-content/uploads/2025/09/c-betting.jpg 1024w, https://PokerVault.eu/wp-content/uploads/2025/09/c-betting-300x300.jpg 300w, https://PokerVault.eu/wp-content/uploads/2025/09/c-betting-150x150.jpg 150w, https://PokerVault.eu/wp-content/uploads/2025/09/c-betting-768x768.jpg 768w, https://PokerVault.eu/wp-content/uploads/2025/09/c-betting-600x600.jpg 600w, https://PokerVault.eu/wp-content/uploads/2025/09/c-betting-100x100.jpg 100w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">The Strategies: From Superhuman to Super Simple</h2>
+
+
+
+<p class="wp-block-paragraph">The study compared five C-betting models, measuring their EV loss against a complex, GTO-approved baseline<sup></sup>.</p>
+
+
+
+<h3 class="wp-block-heading">1. The Galaxy Brain (Ultra Complex) Strategy</h3>
+
+
+
+<p class="wp-block-paragraph">This is the &#8220;superhuman&#8221; baseline strategy, featuring a complicated system of</p>
+
+
+
+<p class="wp-block-paragraph"><strong>four different bet sizes across all flops</strong><sup></sup>. It&#8217;s a model that is &#8220;far beyond what any human can actually implement in practice&#8221;<sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>EV Loss:</strong> None. This is the baseline, with a starting EV of <strong>2.98V</strong>.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">2. The Dynamic Two-Sizing Strategy</h3>
+
+
+
+<p class="wp-block-paragraph">This is how &#8220;most pros are currently simplifying their strategy&#8221;<sup></sup>. Instead of mixing sizes on one flop, this approach uses</p>
+
+
+
+<p class="wp-block-paragraph"><strong>one designated bet size per flop</strong> from a pre-set list (e.g., 25% or 75% pot)<sup></sup>. For example, a player might bet big on high-card flops and small on monotone flops<sup></sup><sup></sup><sup></sup><sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>EV Loss:</strong> Essentially <strong>zero</strong>. This strategy was found to be &#8220;equally as good&#8221; as the ultra-complex one, maintaining the 2.98V EV.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">3. The Simple (One-Sizing) Strategy</h3>
+
+
+
+<p class="wp-block-paragraph">Things get even easier here. This strategy offers only</p>
+
+
+
+<p class="wp-block-paragraph"><strong>one bet size (33% of the pot) or a check on every single flop</strong>, regardless of the board texture<sup></sup>. It&#8217;s described as &#8220;not exactly a difficult strategy to implement&#8221;<sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>EV Loss:</strong> About <strong>half a big blind per 100</strong>. The EV loss was so small that it was considered within the margin of error, suggesting this strategy &#8220;still keeps basically all of your EV&#8221;.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">4. The PLO (Pot-Sizing) Strategy</h3>
+
+
+
+<p class="wp-block-paragraph">This one throws nuance out the window. The only options are to</p>
+
+
+
+<p class="wp-block-paragraph"><strong>bet 100% of the pot or check on every flop</strong><sup></sup>. All raises are also pot-sized<sup></sup>. Using this strategy, players end up checking back about 62% of the time<sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>EV Loss:</strong> Around <strong>two big blinds per 100</strong>. While this is a measurable loss, the strategy still retains &#8220;a ton of EV&#8221;.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">5. The Range Bet (London System) Strategy</h3>
+
+
+
+<p class="wp-block-paragraph">This is the &#8220;simplest possible strategy&#8221;<sup></sup>. The rule is simple:</p>
+
+
+
+<p class="wp-block-paragraph"><strong>bet every single hand on every single flop for 33% of the pot</strong><sup></sup>. It requires zero thought beyond clicking the &#8220;bet&#8221; button<sup></sup>. To counter this, the big blind has to play back aggressively, raising 24-25% of the time<sup></sup>.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>EV Loss:</strong> The highest loss of the group at about <strong>six big blinds per 100</strong>. However, given the &#8220;enormous&#8221; reduction in complexity, this loss is still considered &#8220;not that much&#8221;.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">The Verdict: What&#8217;s the Best Trade-Off?</h2>
+
+
+
+<p class="wp-block-paragraph">The study&#8217;s conclusion is clear: you can make your C-bet strategy &#8220;pretty darn simple without losing much if any EV&#8221;<sup></sup>.</p>
+
+
+
+<p class="wp-block-paragraph">When it comes to the best trade-off between simplicity and performance, the</p>
+
+
+
+<p class="wp-block-paragraph"><strong>range bet strategy &#8220;wins by a landslide&#8221;</strong><sup></sup>. It offers a massive reduction in mental load for a relatively small and manageable loss in theoretical EV<sup></sup>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">So, Should We All Just Range Bet? Not So Fast.</h2>
+
+
+
+<p class="wp-block-paragraph">Before you go and bet 33% on every flop, there are crucial real-world factors to consider. A solver&#8217;s world isn&#8217;t the same as your Friday night home game or a session online.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>You Become Easier to Exploit:</strong> A simple strategy for you is also simple for your opponents to figure out and counter.</li>
+
+
+
+<li><strong>Playing Future Streets:</strong> A simplified flop strategy can make the turn and river <em>more</em> complicated. Certain hands and board runouts might be much more awkward to play when you haven&#8217;t filtered your range with different bet sizes on the flop. What ultimately matters is how well you &#8220;follow through&#8221; with your plan.</li>
+
+
+
+<li><strong>Defensive Weakness:</strong> Your opponents aren&#8217;t bound by your preferred strategy. If you only practice playing against 33% pot bets, you might be at a huge disadvantage when a player starts blasting away with pot-sized bets.</li>
+
+
+
+<li><strong>Theoretical vs. Real-World Loss:</strong> The six big blind per 100 EV loss is a <em>theoretical maximum</em> if your opponent plays a perfect counter-strategy. Most human opponents won&#8217;t &#8220;max exploit&#8221; you, so your actual loss in win rate will likely be much smaller.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Ultimately, while simplifying your C-bet strategy is a powerful tool that costs very little in theoretical EV, the best approach depends on your ability to execute the <em>entire</em> hand, from flop to river, against imperfect human opponents.</p>
+</div>
+    </article>
+    <aside>
+        <div style="background:#0D121D;border:1px solid rgba(148,163,184,0.15);border-radius:14px;padding:20px;position:sticky;top:24px;">
+          <div style="font-family:monospace;font-size:0.72rem;color:#06B6D4;margin-bottom:8px;">⚡ POKERVAULT.EU</div>
+          <h3 style="font-size:1.15rem;margin-bottom:8px;color:#FFF;">Unlock 286+ Pro Poker Courses</h3>
+          <p style="color:#94A3B8;font-size:0.86rem;margin-bottom:14px;">Save up to 95% off retail prices — plus an extra 25% off when you build a 3-course study bundle.</p>
+          <a href="../index.html" style="display:block;text-align:center;background:#10B981;color:#04130D;font-weight:700;padding:12px;border-radius:10px;text-decoration:none;">Explore All 286 Courses →</a>
+        </div>
+        </aside>
+  </main>
+</body>
+</html>

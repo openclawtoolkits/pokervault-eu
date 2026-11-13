@@ -1,0 +1,54 @@
+<!-- ==========================================================================
+  PokerVault.gg — WordPress + WooCommerce Live Storefront & Bundle Builder Block
+  Paste into a Gutenberg "Custom HTML" block on your WordPress Home or Shop page.
+  Also copy the <style> rules into Appearance -> Customize -> Additional CSS
+  to restyle your entire Astra/WooCommerce site in the Modern GTO SaaS theme.
+========================================================================== -->
+<style>
+  :root {
+    --pv-bg: #070A11;
+    --pv-surface: #0D121D;
+    --pv-elevated: #131B2C;
+    --pv-border: rgba(148, 163, 184, 0.14);
+    --pv-emerald: #10B981;
+    --pv-cyan: #06B6D4;
+    --pv-text: #F8FAFC;
+    --pv-muted: #94A3B8;
+  }
+  body,
+  .ast-separate-container .ast-article-single,
+  .ast-plain-container.ast-no-sidebar #primary {
+    background-color: var(--pv-bg) !important;
+    color: var(--pv-text) !important;
+  }
+  .site-header,
+  .ast-primary-header-bar {
+    background-color: rgba(7, 10, 17, 0.9) !important;
+    border-bottom: 1px solid var(--pv-border) !important;
+    backdrop-filter: blur(14px);
+  }
+  .woocommerce ul.products li.product {
+    background: var(--pv-surface) !important;
+    border: 1px solid var(--pv-border) !important;
+    border-radius: 14px !important;
+    padding: 14px !important;
+    color: var(--pv-text) !important;
+  }
+  .woocommerce ul.products li.product:hover {
+    border-color: var(--pv-emerald) !important;
+    transform: translateY(-4px);
+  }
+  .woocommerce ul.products li.product .woocommerce-loop-product__title {
+    color: var(--pv-text) !important;
+  }
+  .woocommerce ul.products li.product .price {
+    color: var(--pv-emerald) !important;
+    font-family: monospace;
+  }
+  .ast-button, .button, .woocommerce a.button, .woocommerce button.button.alt {
+    background: var(--pv-emerald) !important;
+    color: #04130D !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+  }
+</style>

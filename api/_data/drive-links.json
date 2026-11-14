@@ -1,3 +1,6 @@
 {
-  "_note": "Map course product ID (string) to its private Google Drive folder URL for instant auto-delivery. Courses not listed here will trigger an admin fulfillment email and show 'Preparing Google Drive share' to the buyer."
+  "_note": "Map course product ID (string) to its private Google Drive folder URL for instant auto-delivery. Courses not listed here will trigger an admin fulfillment email and show 'Preparing Google Drive share' to the buyer.",
+  "18625": "https://drive.google.com/drive/folders/1xk68-Oo28jMk06j6gYCfGKkNyKDnOlWn",
+  "24284": "https://drive.google.com/drive/folders/1JL9QZt6rYgG6-bZLS1QHAbgbtNJmUad5",
+  "34400": "https://drive.google.com/drive/folders/1LD4IbVXKbT3VCSh2xZxih0cJSjEBGkRh"
 }

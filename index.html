@@ -1529,7 +1529,7 @@ function openBlogArticle(blogId) {
           <button class="btn-emerald" style="width:100%;margin-bottom:8px;" onclick="toggleBundleItem(${p.id})">
             ${state.bundle.includes(p.id) ? '✓ In Your 3-Pack Bundle' : '+ Add to 3-Pack Bundle (Save 25%)'}
           </button>
-          <a href="${p.cart_url}" target="_blank" class="btn-outline-cyan" style="display:block;text-align:center;width:100%;">Instant 1-Click Checkout →</a>
+          <button class="btn-outline-cyan" style="display:block;text-align:center;width:100%;cursor:pointer;" onclick="openCheckoutModal([${p.id}])">Instant 1-Click Checkout →</button>
         </div>
       `).join("")
     : `<div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:18px;">
@@ -1702,7 +1702,7 @@ function openCourseModal(id) {
         <button class="btn-emerald" style="width:100%;margin-bottom:8px;" onclick="toggleBundleItem(${p.id});closeModal();">
           ${inBundle ? '✓ Already in Bundle (Remove)' : '⚡ Add to 3-Pack Bundle (Save up to 25%)'}
         </button>
-        <a href="${p.cart_url}" target="_blank" class="btn-outline-cyan" style="display:block;text-align:center;width:100%;">Buy Single Course Instantly →</a>
+        <button class="btn-outline-cyan" style="display:block;text-align:center;width:100%;cursor:pointer;" onclick="openCheckoutModal([${p.id}])">Buy Single Course Instantly →</button>
         <a href="${p.url}" target="_blank" style="display:block;text-align:center;font-size:0.76rem;color:var(--text-secondary);margin-top:10px;">View Official Store Page ↗</a>
         ${reviewBtn}
       </div>
@@ -1731,13 +1731,12 @@ function openCartModal() {
             <div style="font-size:0.76rem;color:var(--text-secondary);">${p.primary_brand} · Retail <del>$${p.retail}</del> · Vault <strong style="color:var(--emerald);">$${p.price}</strong></div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;">
-            <a href="${p.cart_url}" target="_blank" class="btn-inspect" style="color:var(--emerald);border-color:var(--emerald);">Direct Checkout ↗</a>
+            <button class="btn-inspect" style="color:var(--emerald);border-color:var(--emerald);" onclick="openCheckoutModal([${p.id}])">Direct Checkout →</button>
             <button class="btn-inspect" onclick="toggleBundleItem(${p.id});openCartModal();">✕</button>
           </div>
         </div>
       `).join("");
 
-  const checkoutUrl = m.items.length ? m.items[0].cart_url : "/shop/";
   document.getElementById("pvModalBody").innerHTML = `
     <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:var(--bg-elevated);border:1px solid var(--border-subtle);color:#FFF;width:34px;height:34px;border-radius:999px;cursor:pointer;">✕</button>
     <div style="grid-column: 1 / -1;">
@@ -1749,16 +1748,265 @@ function openCartModal() {
           <div style="font-size:0.8rem;color:var(--text-secondary);">Combined Retail Value: <del>$${m.retailTotal}</del> · Standard Vault: <del>$${m.rawTotal}</del></div>
           <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;color:var(--emerald);">Bundle Total: $${m.finalTotal} <span style="font-size:0.85rem;color:var(--cyan);">(Extra -$${m.extraSaved} Saved)</span></div>
         </div>
-        ${m.count > 0 ? `<a href="${checkoutUrl}" target="_blank" class="btn-emerald">Proceed to Instant Checkout →</a>` : `<button class="btn-emerald" onclick="closeModal()">Browse Courses</button>`}
+        ${m.count > 0 ? `<button class="btn-emerald" onclick="openCheckoutModal(state.bundle)">Proceed to Instant Checkout →</button>` : `<button class="btn-emerald" onclick="closeModal()">Browse Courses</button>`}
       </div>
     </div>
   `;
   document.getElementById("pvModalBackdrop").classList.add("open");
 }
 
+let pvPollTimer = null;
+let pvActiveOrder = null;
+
+function stopCheckoutPolling() {
+  if (pvPollTimer) {
+    clearInterval(pvPollTimer);
+    pvPollTimer = null;
+  }
+}
+
 function closeModal() {
+  stopCheckoutPolling();
   document.getElementById("pvModalBackdrop").classList.remove("open");
 }
+
+function openCheckoutModal(productIds) {
+  stopCheckoutPolling();
+  const ids = Array.isArray(productIds) ? [...new Set(productIds.map(Number))] : [];
+  const items = ids.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
+  if (!items.length) return;
+
+  const rawTotal = items.reduce((s, p) => s + p.price, 0);
+  const discountRate = items.length >= 3 ? 0.25 : (items.length === 2 ? 0.15 : 0);
+  const finalTotal = Math.round(rawTotal * (1 - discountRate));
+
+  const itemListHtml = items.map(p => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:0.86rem;">
+      <span>${p.title}</span>
+      <strong style="font-family:var(--font-mono);color:var(--emerald);">$${p.price}</strong>
+    </div>
+  `).join("");
+
+  document.getElementById("pvModalBody").innerHTML = `
+    <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:var(--bg-elevated);border:1px solid var(--border-subtle);color:#FFF;width:34px;height:34px;border-radius:999px;cursor:pointer;">✕</button>
+    <div style="grid-column: 1 / -1;max-width:640px;margin:0 auto;width:100%;">
+      <div class="eyebrow-chip">🔒 DIRECT ON-CHAIN CRYPTO CHECKOUT</div>
+      <h2 style="font-family:var(--font-display);font-size:1.55rem;margin-bottom:12px;">Complete Your Order (${items.length} ${items.length === 1 ? 'Course' : 'Courses'})</h2>
+      <div style="background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;padding:14px;margin-bottom:16px;">
+        ${itemListHtml}
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;font-size:1.05rem;">
+          <span>Total ${discountRate > 0 ? `(${Math.round(discountRate*100)}% Bundle Discount)` : ''}</span>
+          <strong style="font-family:var(--font-mono);font-size:1.35rem;color:var(--emerald);">$${finalTotal} USD</strong>
+        </div>
+      </div>
+
+      <div style="display:grid;gap:12px;">
+        <div>
+          <label style="display:block;font-size:0.8rem;color:var(--text-secondary);margin-bottom:6px;">Delivery Email (for confirmation &amp; Google Drive share)</label>
+          <input id="pvCheckoutEmail" type="email" placeholder="you@gmail.com" style="width:100%;padding:12px 14px;border-radius:10px;background:var(--bg-base);border:1px solid var(--border-bright);color:#fff;font-size:0.95rem;" />
+        </div>
+        <div>
+          <label style="display:block;font-size:0.8rem;color:var(--text-secondary);margin-bottom:6px;">Select Coin &amp; Network (0% Gateway Fee)</label>
+          <select id="pvCheckoutNetwork" style="width:100%;padding:12px 14px;border-radius:10px;background:var(--bg-base);border:1px solid var(--border-bright);color:#fff;font-size:0.95rem;">
+            <option value="USDT_TRC20">USDT (TRC20 · Tron) — Fast &amp; Low Fee</option>
+            <option value="USDC_POLYGON">USDC (Polygon)</option>
+            <option value="USDT_POLYGON">USDT (Polygon)</option>
+            <option value="USDC_BASE">USDC (Base)</option>
+            <option value="USDT_BASE">USDT (Base)</option>
+            <option value="BTC">Bitcoin (BTC)</option>
+          </select>
+        </div>
+        <div id="pvCheckoutErr" style="display:none;color:#f87171;font-size:0.85rem;background:rgba(248,113,113,0.1);padding:10px;border-radius:8px;"></div>
+        <button id="pvCreateOrderBtn" class="btn-emerald" style="width:100%;padding:14px;font-size:1rem;" onclick="createCryptoOrder([${items.map(p => p.id).join(',')}])">
+          Generate Payment Address &amp; QR →
+        </button>
+      </div>
+    </div>
+  `;
+  document.getElementById("pvModalBackdrop").classList.add("open");
+}
+
+async function createCryptoOrder(productIds) {
+  const email = (document.getElementById("pvCheckoutEmail")?.value || "").trim();
+  const network = document.getElementById("pvCheckoutNetwork")?.value || "USDT_TRC20";
+  const errEl = document.getElementById("pvCheckoutErr");
+  const btn = document.getElementById("pvCreateOrderBtn");
+
+  errEl.style.display = "none";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = "Please enter a valid email address for Google Drive delivery.";
+    errEl.style.display = "block";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Creating on-chain invoice...";
+  try {
+    const res = await fetch("/api/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, network, productIds })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Could not create order.");
+    renderCryptoOrderState(data.order);
+    startCheckoutPolling(data.order.id);
+  } catch (e) {
+    errEl.textContent = e.message;
+    errEl.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "Generate Payment Address & QR →";
+  }
+}
+
+function copyText(txt, btnEl) {
+  navigator.clipboard?.writeText(txt);
+  if (btnEl) {
+    const orig = btnEl.textContent;
+    btnEl.textContent = "Copied!";
+    setTimeout(() => btnEl.textContent = orig, 1500);
+  }
+}
+
+function renderCryptoOrderState(order) {
+  pvActiveOrder = order;
+  const body = document.getElementById("pvModalBody");
+  if (!body) return;
+
+  if (order.status === "paid") {
+    stopCheckoutPolling();
+    const d = order.delivery || { instantItems: [], pendingItems: order.items || [] };
+    const instantHtml = (d.instantItems || []).length ? `
+      <div style="background:rgba(16,185,129,0.12);border:1px solid var(--emerald);border-radius:12px;padding:16px;margin-top:14px;">
+        <div style="font-weight:700;color:var(--emerald);margin-bottom:8px;">⚡ Instant Google Drive Access</div>
+        ${d.instantItems.map(c => `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;">
+            <span style="font-size:0.9rem;">${c.title}</span>
+            <a href="${c.driveUrl}" target="_blank" class="btn-emerald" style="padding:7px 12px;font-size:0.8rem;">Open Drive →</a>
+          </div>
+        `).join("")}
+      </div>
+    ` : "";
+
+    const pendingHtml = (d.pendingItems || []).length ? `
+      <div style="background:rgba(99,102,241,0.12);border:1px solid #6366f1;border-radius:12px;padding:16px;margin-top:14px;">
+        <div style="font-weight:700;color:#a5b4fc;margin-bottom:6px;">📁 Preparing Google Drive Folder Share</div>
+        <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:8px;">We've confirmed your payment and sent a receipt to <strong>${order.email}</strong>. We are preparing your Google Drive access for:</p>
+        <ul style="padding-left:18px;font-size:0.86rem;color:#fff;">
+          ${d.pendingItems.map(c => `<li>${c.title}</li>`).join("")}
+        </ul>
+      </div>
+    ` : "";
+
+    body.innerHTML = `
+      <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:var(--bg-elevated);border:1px solid var(--border-subtle);color:#FFF;width:34px;height:34px;border-radius:999px;cursor:pointer;">✕</button>
+      <div style="grid-column: 1 / -1;max-width:620px;margin:0 auto;width:100%;">
+        <div class="eyebrow-chip" style="border-color:var(--emerald);color:var(--emerald);">✓ PAYMENT VERIFIED ON-CHAIN</div>
+        <h2 style="font-family:var(--font-display);font-size:1.6rem;margin-bottom:8px;">Order ${order.id} Confirmed!</h2>
+        <p style="color:var(--text-secondary);font-size:0.9rem;">Confirmation sent to <strong>${order.email}</strong>. Paid: <strong style="color:var(--emerald);">$${order.paidUsd.toFixed(2)}</strong>.</p>
+        ${instantHtml}
+        ${pendingHtml}
+      </div>
+    `;
+    document.getElementById("pvModalBackdrop").classList.add("open");
+    return;
+  }
+
+  const isPartial = order.status === "partial";
+  const amountToPay = order.remainingAsset;
+  const qrData = order.network === "BTC"
+    ? `bitcoin:${order.wallet}?amount=${amountToPay}`
+    : order.wallet;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=${encodeURIComponent(qrData)}`;
+
+  body.innerHTML = `
+    <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:var(--bg-elevated);border:1px solid var(--border-subtle);color:#FFF;width:34px;height:34px;border-radius:999px;cursor:pointer;">✕</button>
+    <div style="grid-column: 1 / -1;max-width:640px;margin:0 auto;width:100%;">
+      <div class="eyebrow-chip">${isPartial ? '⚠️ PARTIAL PAYMENT RECEIVED' : '⏳ AWAITING ON-CHAIN PAYMENT'} · ${order.id}</div>
+      <h2 style="font-family:var(--font-display);font-size:1.45rem;margin-bottom:8px;">Send Exact Amount via ${order.networkLabel}</h2>
+      ${isPartial ? `
+        <div style="background:rgba(245,158,11,0.12);border:1px solid #f59e0b;border-radius:10px;padding:12px;margin-bottom:14px;font-size:0.86rem;color:#fde68a;">
+          We received <strong>$${order.paidUsd.toFixed(2)}</strong> so far. Please send the remaining <strong>$${order.remainingUsd.toFixed(2)} (${amountToPay} ${order.symbol})</strong> below. We also emailed this payment link to <strong>${order.email}</strong>.
+        </div>
+      ` : `
+        <p style="color:var(--text-secondary);font-size:0.84rem;margin-bottom:14px;">Send the exact net amount (excluding exchange withdrawal fees) so your order verifies automatically.</p>
+      `}
+
+      <div style="display:grid;grid-template-columns:190px 1fr;gap:18px;align-items:center;background:var(--bg-base);border:1px solid var(--border-bright);border-radius:14px;padding:16px;margin-bottom:14px;">
+        <img src="${qrUrl}" alt="Payment QR" style="width:190px;height:190px;border-radius:10px;background:#fff;padding:6px;" />
+        <div style="display:grid;gap:10px;">
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-secondary);text-transform:uppercase;">${isPartial ? 'Remaining Amount' : 'Exact Amount to Send'}</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:2px;">
+              <strong style="font-family:var(--font-mono);font-size:1.35rem;color:var(--emerald);">${amountToPay} ${order.symbol}</strong>
+              <button class="btn-inspect" style="padding:4px 10px;font-size:0.75rem;" onclick="copyText('${amountToPay}', this)">Copy</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-secondary);text-transform:uppercase;">Receiving Address (${order.networkLabel})</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;">
+              <code style="font-size:0.78rem;word-break:break-all;background:rgba(255,255,255,0.05);padding:6px 8px;border-radius:6px;color:#fff;">${order.wallet}</code>
+              <button class="btn-inspect" style="padding:4px 10px;font-size:0.75rem;" onclick="copyText('${order.wallet}', this)">Copy</button>
+            </div>
+          </div>
+          <div id="pvPollStatus" style="font-size:0.8rem;color:var(--cyan);">🔄 Checking blockchain automatically every 10s...</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <input id="pvManualTxid" type="text" placeholder="Already sent? Paste TXID / Hash (optional)" style="flex:1;min-width:220px;padding:10px 12px;border-radius:8px;background:var(--bg-base);border:1px solid var(--border-subtle);color:#fff;font-size:0.85rem;" />
+        <button class="btn-emerald" style="padding:10px 16px;" onclick="verifyPaymentNow(true)">Verify Payment Now</button>
+      </div>
+      <div id="pvVerifyMsg" style="margin-top:8px;font-size:0.83rem;color:var(--text-secondary);"></div>
+    </div>
+  `;
+  document.getElementById("pvModalBackdrop").classList.add("open");
+}
+
+function startCheckoutPolling(orderId) {
+  stopCheckoutPolling();
+  pvPollTimer = setInterval(() => verifyPaymentNow(false), 10000);
+}
+
+async function verifyPaymentNow(withManualTxid) {
+  if (!pvActiveOrder) return;
+  const msgEl = document.getElementById("pvVerifyMsg");
+  const txid = withManualTxid ? (document.getElementById("pvManualTxid")?.value || "").trim() : "";
+  if (withManualTxid && msgEl) msgEl.textContent = "Checking blockchain...";
+
+  try {
+    const res = await fetch("/api/verify-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderId: pvActiveOrder.id, txid })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Verification check failed.");
+    if (data.order.status === "paid" || data.order.paidUsd > (pvActiveOrder.paidUsd || 0)) {
+      renderCryptoOrderState(data.order);
+    } else if (withManualTxid && msgEl) {
+      msgEl.textContent = "Not detected on-chain yet — wait 15–30s for confirmation and click Verify again.";
+    }
+  } catch (e) {
+    if (withManualTxid && msgEl) msgEl.textContent = e.message;
+  }
+}
+
+async function checkUrlPayParam() {
+  const params = new URLSearchParams(window.location.search);
+  const payId = params.get("pay");
+  if (!payId) return;
+  try {
+    const res = await fetch(`/api/get-order?id=${encodeURIComponent(payId)}`);
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.order) {
+      renderCryptoOrderState(data.order);
+      if (data.order.status !== "paid") startCheckoutPolling(data.order.id);
+    }
+  } catch (_) {}
+}
+checkUrlPayParam();
 
 initApp();
 </script>

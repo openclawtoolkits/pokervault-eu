@@ -1,6 +1,7 @@
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const FROM_EMAIL = process.env.FROM_EMAIL || "PokerVault <orders@pokervault.eu>";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "cngfin@gmail.com";
+const REPLY_TO_EMAIL = process.env.REPLY_TO_EMAIL || "";
 const SITE_URL = process.env.SITE_URL || "https://pokervault.eu";
 
 function esc(str) {
@@ -100,7 +101,7 @@ async function sendOrderConfirmedEmail(order, instantItems, pendingItems) {
     to: order.email,
     subject: `Order Confirmed (${order.id}) — PokerVault.eu`,
     html,
-    replyTo: ADMIN_EMAIL,
+    replyTo: REPLY_TO_EMAIL || undefined,
   });
 }
 
@@ -160,7 +161,7 @@ async function sendShortfallEmail(order, newlyPaidUsd, remainingUsd, remainingAs
     to: order.email,
     subject: `Action Needed: $${Number(remainingUsd).toFixed(2)} Remaining for Order ${order.id}`,
     html,
-    replyTo: ADMIN_EMAIL,
+    replyTo: REPLY_TO_EMAIL || undefined,
   });
 }
 

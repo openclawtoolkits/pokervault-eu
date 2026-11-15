@@ -1,19 +1,6 @@
-const { getOrder } = require("./_lib/store");
-const driveLinks = require("./_data/drive-links.json");
-
-function buildDelivery(order) {
-  const instantItems = [];
-  const pendingItems = [];
-  for (const item of order.items || []) {
-    const url = driveLinks[String(item.id)];
-    if (url && typeof url === "string" && url.startsWith("http")) {
-      instantItems.push({ ...item, driveUrl: url });
-    } else {
-      pendingItems.push(item);
-    }
-  }
-  return { instantItems, pendingItems };
-}
+const { getOrder, isTxClaimed, claimTx } = require("./_lib/store");
+const { retrieveCheckoutSession } = require("./_lib/stripe");
+const { buildDelivery, finalizePaidOrder } = require("./_lib/fulfill");
 
 module.exports = async function handler(req, res) {
   if (req.method !== "GET") {
@@ -25,6 +12,34 @@ module.exports = async function handler(req, res) {
 
     const order = await getOrder(orderId);
     if (!order) return res.status(404).json({ error: "Order not found or expired." });
+
+    if (order.network === "STRIPE" && order.status !== "paid" && order.stripeSessionId) {
+      try {
+        const session = await retrieveCheckoutSession(order.stripeSessionId);
+        if (session && session.payment_status === "paid") {
+          const txid = session.payment_intent || session.id;
+          if (!(await isTxClaimed(txid))) {
+            await claimTx(txid, order.id);
+          }
+          order.paidUsd = Number(((session.amount_total || 0) / 100).toFixed(2)) || order.totalUsd;
+          order.paidAsset = order.paidUsd;
+          order.txs = order.txs || [];
+          if (!order.txs.some((t) => t.txid === txid)) {
+            order.txs.push({
+              txid,
+              amountUsd: order.paidUsd,
+              amountAsset: order.paidUsd,
+              symbol: "USD",
+              network: "STRIPE",
+              timestamp: Date.now(),
+            });
+          }
+          await finalizePaidOrder(order);
+        }
+      } catch (e) {
+        console.error("Stripe session fallback check failed:", e.message);
+      }
+    }
 
     const remainingUsd = Math.max(0, Number((order.totalUsd - (order.paidUsd || 0)).toFixed(2)));
     const remainingAsset =

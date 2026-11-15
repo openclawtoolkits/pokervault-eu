@@ -1795,7 +1795,7 @@ function openCheckoutModal(productIds) {
   document.getElementById("pvModalBody").innerHTML = `
     <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:var(--bg-elevated);border:1px solid var(--border-subtle);color:#FFF;width:34px;height:34px;border-radius:999px;cursor:pointer;">✕</button>
     <div style="grid-column: 1 / -1;max-width:640px;margin:0 auto;width:100%;">
-      <div class="eyebrow-chip">🔒 DIRECT ON-CHAIN CRYPTO CHECKOUT</div>
+      <div class="eyebrow-chip">🔒 INSTANT AUTOMATED CHECKOUT</div>
       <h2 style="font-family:var(--font-display);font-size:1.55rem;margin-bottom:12px;">Complete Your Order (${items.length} ${items.length === 1 ? 'Course' : 'Courses'})</h2>
       <div style="background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;padding:14px;margin-bottom:16px;">
         ${itemListHtml}
@@ -1811,8 +1811,25 @@ function openCheckoutModal(productIds) {
           <input id="pvCheckoutEmail" type="email" placeholder="you@gmail.com" style="width:100%;padding:12px 14px;border-radius:10px;background:var(--bg-base);border:1px solid var(--border-bright);color:#fff;font-size:0.95rem;" />
         </div>
         <div>
+          <label style="display:block;font-size:0.8rem;color:var(--text-secondary);margin-bottom:6px;">Payment Method</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <button type="button" id="pvMethodStripeBtn" onclick="setCheckoutPayMethod('stripe')" style="padding:11px 10px;border-radius:10px;border:1px solid var(--emerald);background:rgba(16,185,129,0.12);color:#fff;font-weight:700;font-size:0.85rem;cursor:pointer;">
+              💳 Card / Apple Pay / Link
+            </button>
+            <button type="button" id="pvMethodCryptoBtn" onclick="setCheckoutPayMethod('crypto')" style="padding:11px 10px;border-radius:10px;border:1px solid var(--border-subtle);background:var(--bg-base);color:var(--text-secondary);font-weight:700;font-size:0.85rem;cursor:pointer;">
+              ₿ Crypto (USDT / USDC / BTC)
+            </button>
+          </div>
+        </div>
+        <div id="pvStripePayPanel">
+          <div style="font-size:0.78rem;color:var(--text-secondary);margin-bottom:10px;">Supports Visa, Mastercard, Apple Pay, Google Pay, and Stripe Link. Instant automated Google Drive delivery.</div>
+          <button id="pvStripePayBtn" class="btn-emerald" style="width:100%;padding:14px;font-size:1rem;" onclick="createStripeOrder([${items.map(p => p.id).join(',')}])">
+            Pay $${finalTotal} USD (Card / Apple Pay / Link) →
+          </button>
+        </div>
+        <div id="pvCryptoPayPanel" style="display:none;">
           <label style="display:block;font-size:0.8rem;color:var(--text-secondary);margin-bottom:6px;">Select Coin &amp; Network (0% Gateway Fee)</label>
-          <select id="pvCheckoutNetwork" style="width:100%;padding:12px 14px;border-radius:10px;background:var(--bg-base);border:1px solid var(--border-bright);color:#fff;font-size:0.95rem;">
+          <select id="pvCheckoutNetwork" style="width:100%;padding:12px 14px;border-radius:10px;background:var(--bg-base);border:1px solid var(--border-bright);color:#fff;font-size:0.95rem;margin-bottom:12px;">
             <option value="USDT_TRC20">USDT (TRC20 · Tron) — Fast &amp; Low Fee</option>
             <option value="USDC_POLYGON">USDC (Polygon)</option>
             <option value="USDT_POLYGON">USDT (Polygon)</option>
@@ -1820,15 +1837,67 @@ function openCheckoutModal(productIds) {
             <option value="USDT_BASE">USDT (Base)</option>
             <option value="BTC">Bitcoin (BTC)</option>
           </select>
+          <button id="pvCreateOrderBtn" class="btn-emerald" style="width:100%;padding:14px;font-size:1rem;" onclick="createCryptoOrder([${items.map(p => p.id).join(',')}])">
+            Generate Payment Address &amp; QR →
+          </button>
         </div>
         <div id="pvCheckoutErr" style="display:none;color:#f87171;font-size:0.85rem;background:rgba(248,113,113,0.1);padding:10px;border-radius:8px;"></div>
-        <button id="pvCreateOrderBtn" class="btn-emerald" style="width:100%;padding:14px;font-size:1rem;" onclick="createCryptoOrder([${items.map(p => p.id).join(',')}])">
-          Generate Payment Address &amp; QR →
-        </button>
       </div>
     </div>
   `;
   document.getElementById("pvModalBackdrop").classList.add("open");
+}
+
+function setCheckoutPayMethod(mode) {
+  const isStripe = mode === "stripe";
+  const sp = document.getElementById("pvStripePayPanel");
+  const cp = document.getElementById("pvCryptoPayPanel");
+  const sb = document.getElementById("pvMethodStripeBtn");
+  const cb = document.getElementById("pvMethodCryptoBtn");
+  if (sp) sp.style.display = isStripe ? "block" : "none";
+  if (cp) cp.style.display = isStripe ? "none" : "block";
+  if (sb) {
+    sb.style.borderColor = isStripe ? "var(--emerald)" : "var(--border-subtle)";
+    sb.style.background = isStripe ? "rgba(16,185,129,0.12)" : "var(--bg-base)";
+    sb.style.color = isStripe ? "#fff" : "var(--text-secondary)";
+  }
+  if (cb) {
+    cb.style.borderColor = !isStripe ? "var(--emerald)" : "var(--border-subtle)";
+    cb.style.background = !isStripe ? "rgba(16,185,129,0.12)" : "var(--bg-base)";
+    cb.style.color = !isStripe ? "#fff" : "var(--text-secondary)";
+  }
+}
+
+async function createStripeOrder(productIds) {
+  const email = (document.getElementById("pvCheckoutEmail")?.value || "").trim();
+  const errEl = document.getElementById("pvCheckoutErr");
+  const btn = document.getElementById("pvStripePayBtn");
+
+  errEl.style.display = "none";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = "Please enter a valid email address for Google Drive delivery.";
+    errEl.style.display = "block";
+    return;
+  }
+
+  const origText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Redirecting to Stripe Checkout...";
+  try {
+    const res = await fetch("/api/create-stripe-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, productIds })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || "Could not start card checkout.");
+    window.location.href = data.url;
+  } catch (e) {
+    errEl.textContent = e.message;
+    errEl.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = origText;
+  }
 }
 
 async function createCryptoOrder(productIds) {
@@ -1906,7 +1975,7 @@ function renderCryptoOrderState(order) {
     body.innerHTML = `
       <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:var(--bg-elevated);border:1px solid var(--border-subtle);color:#FFF;width:34px;height:34px;border-radius:999px;cursor:pointer;">✕</button>
       <div style="grid-column: 1 / -1;max-width:620px;margin:0 auto;width:100%;">
-        <div class="eyebrow-chip" style="border-color:var(--emerald);color:var(--emerald);">✓ PAYMENT VERIFIED ON-CHAIN</div>
+        <div class="eyebrow-chip" style="border-color:var(--emerald);color:var(--emerald);">✓ ${order.network === 'STRIPE' ? 'PAYMENT CONFIRMED' : 'PAYMENT VERIFIED ON-CHAIN'}</div>
         <h2 style="font-family:var(--font-display);font-size:1.6rem;margin-bottom:8px;">Order ${order.id} Confirmed!</h2>
         <p style="color:var(--text-secondary);font-size:0.9rem;">Confirmation sent to <strong>${order.email}</strong>. Paid: <strong style="color:var(--emerald);">$${order.paidUsd.toFixed(2)}</strong>.</p>
         ${instantHtml}
